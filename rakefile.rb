@@ -354,7 +354,7 @@ task :all_nuspecs => [:mt_nuspec, :mtl4n_nuspec, :mtnlog_nuspec, :mtsm_nuspec, :
   
   nuspec :mtnlog_nuspec => ['nuspecs'] do |nuspec|
     nuspec.id = 'MassTransit.NLog'
-    nuspec.version = asm_version
+    nuspec.version = NUGET_VERSION
     nuspec.authors = 'Henrik Feldt'
     nuspec.owners = 'Chris Patterson, Dru Sellers, Travis Smith'
     nuspec.description = 'This integration library adds support for NLog to MassTransit, a distributed application framework for .NET, including support for MSMQ and RabbitMQ.'
@@ -362,7 +362,7 @@ task :all_nuspecs => [:mt_nuspec, :mtl4n_nuspec, :mtnlog_nuspec, :mtsm_nuspec, :
     nuspec.language = "en-US"
     nuspec.licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0"
     nuspec.requireLicenseAcceptance = "true"
-    nuspec.dependency "MassTransit", asm_version
+    nuspec.dependency "MassTransit", NUGET_VERSION
     nuspec.dependency "NLog", "2.0.0.2000"
     nuspec.output_file = 'nuspecs/MassTransit.NLog.nuspec'
     
