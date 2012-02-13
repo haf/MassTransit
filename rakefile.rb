@@ -535,9 +535,13 @@ desc "publishes (pushes) the nuget package 'NLog.Targets.RabbitMQ'"
 nugetpush :nr_nuget_push do |nuget|
   nuget.command = "#{COMMANDS[:nuget]}"
   nuget.package = "#{File.join(FOLDERS[:nuget], PROJECTS[:nr][:nuget_key] + "." + NUGET_VERSION + '.nupkg')}"
-# nuget.apikey = "...."
   nuget.source = URIS[:local]
   nuget.create_only = false
+end
+
+desc "publish locally"
+task :lpub => [:build, :nuget] do
+  copyOutputFiles 'build_artifacts', '*.nupkg', 'D:/packages'
 end
 
 task :verify do
