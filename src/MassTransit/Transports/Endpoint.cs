@@ -186,7 +186,7 @@ namespace MassTransit.Transports
                                     //                                    _tracker.MessageWasReceivedSuccessfully(receiveContext.MessageId);
                                     receivedSuccessfully = true;
                                 }
-                                catch (MessageNotConsumedException ex)
+                                catch (MessageNotConsumedException)
                                 {
                                     receivedSuccessfully = false;
 
