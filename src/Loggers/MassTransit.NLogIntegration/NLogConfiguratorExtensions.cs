@@ -1,10 +1,11 @@
-<<<<<<< .merge_file_a09504
 ﻿using MassTransit.BusConfigurators;
 using MassTransit.Logging;
 using MassTransit.Util;
 
 namespace MassTransit.NLogIntegration
 {
+	using Logging;
+
 	/// <summary>
 	/// Extensions for configuring NLog with MassTransit
 	/// </summary>

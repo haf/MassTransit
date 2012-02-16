@@ -10,7 +10,7 @@ namespace MassTransit.NLogIntegration.Logging
 
         public ILog Get(string name)
         {
-            return new NLogLog(_factory.GetLogger(name), name);
+            return new NLogLog(_factory.GetLogger(name));
         }
     }
 }

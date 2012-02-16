@@ -6,22 +6,23 @@ using LogMessageGenerator = MassTransit.Logging.LogMessageGenerator;
 
 namespace MassTransit.NLogIntegration.Logging
 {
+	using Logger = NLog.Logger;
+
 	/// <summary>
 	/// A logger that wraps to NLog. See http://stackoverflow.com/questions/7412156/how-to-retain-callsite-information-when-wrapping-nlog
 	/// </summary>
 	public class NLogLog : ILog
 	{
-		private static readonly LogFactory _factory = new LogFactory();
-		private readonly NLog.Logger _log;
+		private readonly Logger _log;
 
 		/// <summary>
 		/// Create a new NLog logger instance.
 		/// </summary>
-		/// <param name="name">Name of type to log as.</param>
-		public NLogLog([NotNull] string name)
+		/// <param name="logger">Name of type to log as.</param>
+		public NLogLog([NotNull] Logger logger)
 		{
-			if (name == null) throw new ArgumentNullException("name");
-			_log = _factory.GetLogger(name);_log.Debug(() => "");
+			if (logger == null) throw new ArgumentNullException("logger");
+			_log = logger;
 		}
 
 		#region IsXXX

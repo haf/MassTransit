@@ -291,7 +291,7 @@ end
 task :ci => [:default, :package, :moma]
 
 desc "ZIPs up the build results"
-zip :package do |zip|
+zip :package => [:versioning] do |zip|
   zip.directories_to_zip props[:stage]
   zip.output_file = "MassTransit-#{BUILD_VERSION}.zip"
   zip.output_path = props[:artifacts]
@@ -561,6 +561,7 @@ desc "publish locally"
 task :lpub => [:build, :nuget] do
   copyOutputFiles 'build_artifacts', '*.nupkg', 'D:/packages'
 end
+
 task :verify do
   changed_files = `git diff --cached --name-only`.split("\n") + `git diff --name-only`.split("\n")
   if !(changed_files == [".semver", "Rakefile.rb"] or
