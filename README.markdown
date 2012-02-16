@@ -55,7 +55,7 @@ ServiceBusFactory.New(sbc =>
 ### Contributing 
 
 1. `git config --global core.autoclrf false`
-2. Shared ReSharper settings are under src/MassTransit.resharper.xml
+2. Shared ReSharper settings are under src/MassTransit.resharper.xml for 5.1-6.0, src/MassTransit.sln.DotSettings for 6.1
 3. Make a pull request. `rake global_version` generates the global version if you prefer building with MsBuild/Visual Studio. 
  
 # REQUIREMENTS
