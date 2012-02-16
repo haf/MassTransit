@@ -1,13 +1,16 @@
-using MassTransit.Logging;
-using MassTransit.NLogIntegration.Logging;
-
-namespace MassTransit.NLogIntegration
+namespace MassTransit.NLogIntegration.Logging
 {
-	public class NLogLogger : ILogger
-	{
-		public ILog Get(string name)
-		{
-			return new NLogLog(name);
-		}
-	}
+    using MassTransit.Logging;
+    using NLog;
+
+    public class NLogLogger :
+        ILogger
+    {
+        readonly LogFactory _factory = new LogFactory();
+
+        public ILog Get(string name)
+        {
+            return new NLogLog(_factory.GetLogger(name), name);
+        }
+    }
 }

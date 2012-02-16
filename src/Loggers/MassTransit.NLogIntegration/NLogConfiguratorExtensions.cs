@@ -1,3 +1,4 @@
+<<<<<<< .merge_file_a09504
 ﻿using MassTransit.BusConfigurators;
 using MassTransit.Logging;
 using MassTransit.Util;

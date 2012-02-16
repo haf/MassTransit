@@ -11,11 +11,10 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
 
-using MassTransit.Util;
-
 namespace MassTransit.Logging
 {
     using System;
+    using Util;
 
 	/// <summary>
 	/// A delegate that only is called if the given level is being logged with. This allows
@@ -51,19 +50,18 @@ namespace MassTransit.Logging
         void Fatal(object obj);
 		void Fatal([NotNull] LogMessageGenerator messageGenerator);
 		void Fatal([NotNull] object obj, Exception exception);
-
         void DebugFormat(IFormatProvider formatProvider, string format, params object[] args);
         void DebugFormat(string format, params object[] args);
 
         void InfoFormat(IFormatProvider formatProvider, string format, params object[] args);
         void InfoFormat(string format, params object[] args);
-        
+
         void WarnFormat(IFormatProvider formatProvider, string format, params object[] args);
         void WarnFormat(string format, params object[] args);
-        
+
         void ErrorFormat(IFormatProvider formatProvider, string format, params object[] args);
         void ErrorFormat(string format, params object[] args);
-        
+
         void FatalFormat(IFormatProvider formatProvider, string format, params object[] args);
         void FatalFormat(string format, params object[] args);
     }

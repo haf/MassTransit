@@ -84,6 +84,7 @@ task :compile => [:versioning, :global_version, :build] do
 	copyOutputFiles File.join(props[:src], "Loggers/MassTransit.NLogIntegration/bin/#{BUILD_CONFIG}"), "MassTransit.NLogIntegration.{dll,pdb,xml}", outl
 	
 
+
 	outc = File.join(props[:output], "Containers")
         copyOutputFiles File.join(props[:src], "Containers/MassTransit.StructureMapIntegration/bin/#{BUILD_CONFIG}"), "MassTransit.StructureMapIntegration.{dll,pdb,xml}", outc
 	copyOutputFiles File.join(props[:src], "Containers/MassTransit.UnityIntegration/bin/#{BUILD_CONFIG}"), "MassTransit.UnityIntegration.{dll,pdb,xml}", outc
@@ -259,7 +260,7 @@ nunit :unit_tests => [:compile] do |nunit|
         nunit.command = File.join('lib', 'nunit', 'net-2.0',  "nunit-console#{(BUILD_PLATFORM.empty? ? '' : "-#{BUILD_PLATFORM}")}.exe")
         nunit.options = "/framework=#{CLR_TOOLS_VERSION}", '/nothread', '/nologo', '/labels', "\"/xml=#{File.join(props[:artifacts], 'nunit-test-results.xml')}\""
 
-        nunit.assemblies = FileList["tests/MassTransit.Tests.dll"]
+        nunit.assemblies = FileList["tests/MassTransit.Tests.dll", "tests/MassTransit.Containers.Tests.dll"]
 end
 
 desc "Runs transport tests (integration)"
@@ -369,6 +370,23 @@ task :all_nuspecs => [:mt_nuspec, :mtl4n_nuspec, :mtnlog_nuspec, :mtsm_nuspec, :
     add_files props[:stage], File.join('Logging', 'MassTransit.NLogIntegration.{dll,pdb,xml}'), nuspec
   end
 
+  nuspec :mtnlog_nuspec => ['nuspecs'] do |nuspec|
+    nuspec.id = 'MassTransit.NLog'
+    nuspec.version = NUGET_VERSION
+    nuspec.authors = 'Henrik Feldt'
+    nuspec.owners = 'Chris Patterson, Dru Sellers, Travis Smith'
+    nuspec.description = 'This integration library adds support for NLog to MassTransit, a distributed application framework for .NET, including support for MSMQ and RabbitMQ.'
+    nuspec.projectUrl = 'http://masstransit-project.com'
+    nuspec.language = "en-US"
+    nuspec.licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0"
+    nuspec.requireLicenseAcceptance = "true"
+    nuspec.dependency "MassTransit", NUGET_VERSION
+    nuspec.dependency "NLog", "2.0.0.2000"
+    nuspec.output_file = 'nuspecs/MassTransit.NLog.nuspec'
+
+    add_files props[:stage], File.join('Logging', 'MassTransit.NLogIntegration.{dll,pdb,xml}'), nuspec
+  end
+
   nuspec :mtcw_nuspec => ['nuspecs'] do |nuspec|
     nuspec.id = 'MassTransit.CastleWindsor'
     nuspec.version = NUGET_VERSION
@@ -412,7 +430,7 @@ task :all_nuspecs => [:mt_nuspec, :mtl4n_nuspec, :mtnlog_nuspec, :mtsm_nuspec, :
     nuspec.licenseUrl = "http://www.apache.org/licenses/LICENSE-2.0"
     nuspec.requireLicenseAcceptance = "true"
     nuspec.dependency "MassTransit", NUGET_VERSION
-    nuspec.dependency "Autofac", "2.4.5.724"
+    nuspec.dependency "Autofac", "2.5.2.830"
     nuspec.output_file = 'nuspecs/MassTransit.Autofac.nuspec'
 
 	add_files props[:stage], "#{File.join('Containers', 'MassTransit.AutofacIntegration.{dll,pdb,xml}')}", nuspec
@@ -543,30 +561,29 @@ desc "publish locally"
 task :lpub => [:build, :nuget] do
   copyOutputFiles 'build_artifacts', '*.nupkg', 'D:/packages'
 end
-
 task :verify do
   changed_files = `git diff --cached --name-only`.split("\n") + `git diff --name-only`.split("\n")
-  if !(changed_files == [".semver", "Rakefile.rb"] or 
-    changed_files == ["Rakefile.rb"] or 
+  if !(changed_files == [".semver", "Rakefile.rb"] or
+    changed_files == ["Rakefile.rb"] or
     changed_files == [".semver"] or
     changed_files.empty?)
     raise "Repository contains uncommitted changes; either commit or stash."
   end
 end
 
-task :gittag do 
+task :gittag do
   v = SemVer.find
   if `git tag`.split("\n").include?("#{v.to_s}")
     raise "Version #{v.to_s} has already been released! You cannot release it twice."
   end
   puts 'committing'
-  `git commit -am "Released version #{v.to_s}"` 
+  `git commit -am "Released version #{v.to_s}"`
   puts 'tagging'
   `git tag #{v.to_s}`
   puts 'pushing'
   `git push`
   `git push --tags`
-  
+
   puts "MAINTAINERS: now merge into master and then back into develop!!!"
 end
 
@@ -577,3 +594,4 @@ desc "MAINTAINERS: builds, git tags and pushes nugets"
 task :release => [:verify, :default, :gittag, :publish] do
   puts 'done'
 end
+
