@@ -18,7 +18,7 @@ namespace MassTransit.Log4NetIntegration.Logging
     public class Log4NetLogger :
         ILogger
     {
-        public MassTransit.Logging.ILog Get(string name)
+    	MassTransit.Logging.ILog ILogger.Get(string name)
         {
             return new Log4NetLog(LogManager.GetLogger(name));
         }

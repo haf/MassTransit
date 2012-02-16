@@ -18,164 +18,166 @@ namespace MassTransit.Log4NetIntegration.Logging
     public class Log4NetLog :
         ILog
     {
+		private readonly ILog _self;
         readonly log4net.ILog _log;
 
         public Log4NetLog(log4net.ILog log)
         {
             _log = log;
+        	_self = this;
         }
 
-        public void Debug(object message)
+    	void ILog.Debug(object message)
         {
             _log.Debug(message);
         }
 
-    	public void Debug(LogMessageGenerator messageGenerator)
+    	void ILog.Debug(LogMessageGenerator messageGenerator)
     	{
-    		if (IsDebugEnabled)
-				Debug(messageGenerator());
+    		if (_self.IsDebugEnabled)
+				_self.Debug(messageGenerator());
     	}
 
-    	public void Debug(object message, Exception exception)
+    	void ILog.Debug(object message, Exception exception)
         {
             _log.Debug(message, exception);
         }
 
-        public void DebugFormat(string format, params object[] args)
+    	void ILog.DebugFormat(string format, params object[] args)
         {
             _log.DebugFormat(format, args);
         }
 
-        public void DebugFormat(IFormatProvider provider, string format, params object[] args)
+    	void ILog.DebugFormat(IFormatProvider provider, string format, params object[] args)
         {
             _log.DebugFormat(provider, format, args);
         }
 
-        public void Info(object message)
+    	void ILog.Info(object message)
         {
             _log.Info(message);
         }
 
-    	public void Info(LogMessageGenerator messageGenerator)
+    	void ILog.Info(LogMessageGenerator messageGenerator)
     	{
-			if (IsInfoEnabled)
-				Info(messageGenerator());
+			if (_self.IsInfoEnabled)
+				_self.Info(messageGenerator());
     	}
 
-    	public void Info(object message, Exception exception)
+    	void ILog.Info(object message, Exception exception)
         {
             _log.Info(message, exception);
         }
 
-        public void InfoFormat(string format, params object[] args)
+    	void ILog.InfoFormat(string format, params object[] args)
         {
             _log.InfoFormat(format, args);
         }
 
-        public void InfoFormat(IFormatProvider provider, string format, params object[] args)
+    	void ILog.InfoFormat(IFormatProvider provider, string format, params object[] args)
         {
             _log.InfoFormat(provider, format, args);
         }
 
-        public void Warn(object message)
+    	void ILog.Warn(object message)
         {
             _log.Warn(message);
         }
 
-    	public void Warn(LogMessageGenerator messageGenerator)
+    	void ILog.Warn(LogMessageGenerator messageGenerator)
     	{
-			if (IsWarnEnabled)
-				Warn(messageGenerator());
+			if (_self.IsWarnEnabled)
+				_self.Warn(messageGenerator());
     	}
 
-    	public void Warn(object message, Exception exception)
+    	void ILog.Warn(object message, Exception exception)
         {
             _log.Warn(message, exception);
         }
 
-        public void WarnFormat(string format, params object[] args)
+    	void ILog.WarnFormat(string format, params object[] args)
         {
             _log.WarnFormat(format, args);
         }
 
-        public void WarnFormat(IFormatProvider provider, string format, params object[] args)
+    	void ILog.WarnFormat(IFormatProvider provider, string format, params object[] args)
         {
             _log.WarnFormat(provider, format, args);
         }
 
-        public void Error(object message)
+    	void ILog.Error(object message)
         {
             _log.Error(message);
         }
 
     	public void Error(LogMessageGenerator messageGenerator)
     	{
-			if (IsErrorEnabled)
-				Error(messageGenerator());
+			if (_self.IsErrorEnabled)
+				_self.Error(messageGenerator());
     	}
 
-    	public void Error(object message, Exception exception)
+    	void ILog.Error(object message, Exception exception)
         {
             _log.Error(message, exception);
         }
 
-        public void ErrorFormat(string format, params object[] args)
+    	void ILog.ErrorFormat(string format, params object[] args)
         {
             _log.ErrorFormat(format, args);
         }
 
-        public void ErrorFormat(IFormatProvider provider, string format, params object[] args)
+    	void ILog.ErrorFormat(IFormatProvider provider, string format, params object[] args)
         {
             _log.ErrorFormat(provider, format, args);
         }
 
-        public void Fatal(object message)
+    	void ILog.Fatal(object message)
         {
             _log.Fatal(message);
         }
 
-    	public void Fatal(LogMessageGenerator messageGenerator)
+    	void ILog.Fatal(LogMessageGenerator messageGenerator)
     	{
-			if (IsFatalEnabled)
-				Fatal(messageGenerator());
+			if (_self.IsFatalEnabled)
+				_self.Fatal(messageGenerator());
     	}
 
-    	public void Fatal(object message, Exception exception)
+    	void ILog.Fatal(object message, Exception exception)
         {
             _log.Fatal(message, exception);
         }
 
-        public void FatalFormat(string format, params object[] args)
+    	void ILog.FatalFormat(string format, params object[] args)
         {
             _log.FatalFormat(format, args);
         }
 
-        public void FatalFormat(IFormatProvider provider, string format, params object[] args)
+    	void ILog.FatalFormat(IFormatProvider provider, string format, params object[] args)
         {
             _log.FatalFormat(provider, format, args);
         }
 
-        public bool IsDebugEnabled
+    	bool ILog.IsDebugEnabled
         {
             get { return _log.IsDebugEnabled; }
         }
 
-        public bool IsInfoEnabled
+    	bool ILog.IsInfoEnabled
         {
             get { return _log.IsInfoEnabled; }
         }
 
-        public bool IsWarnEnabled
+    	bool ILog.IsWarnEnabled
         {
             get { return _log.IsWarnEnabled; }
         }
 
-        public bool IsErrorEnabled
+    	bool ILog.IsErrorEnabled
         {
             get { return _log.IsErrorEnabled; }
         }
 
-        public bool IsFatalEnabled
+    	bool ILog.IsFatalEnabled
         {
             get { return _log.IsFatalEnabled; }
         }

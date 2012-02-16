@@ -14,6 +14,7 @@ namespace MassTransit.NLogIntegration.Logging
 	public class NLogLog : ILog
 	{
 		private readonly Logger _log;
+		private readonly ILog _self;
 
 		/// <summary>
 		/// Create a new NLog logger instance.
@@ -23,31 +24,32 @@ namespace MassTransit.NLogIntegration.Logging
 		{
 			if (logger == null) throw new ArgumentNullException("logger");
 			_log = logger;
+			_self = this;
 		}
 
 		#region IsXXX
 
-		public bool IsDebugEnabled
+		bool ILog.IsDebugEnabled
 		{
 			get { return _log.IsDebugEnabled; }
 		}
 
-		public bool IsInfoEnabled
+		bool ILog.IsInfoEnabled
 		{
 			get { return _log.IsInfoEnabled; }
 		}
 
-		public bool IsWarnEnabled
+		bool ILog.IsWarnEnabled
 		{
 			get { return _log.IsWarnEnabled; }
 		}
 
-		public bool IsErrorEnabled
+		bool ILog.IsErrorEnabled
 		{
 			get { return _log.IsErrorEnabled; }
 		}
 
-		public bool IsFatalEnabled
+		bool ILog.IsFatalEnabled
 		{
 			get { return _log.IsFatalEnabled; }
 		}
@@ -56,82 +58,82 @@ namespace MassTransit.NLogIntegration.Logging
 
 		#region Logging Methods
 
-		public void Debug(object obj)
+		void ILog.Debug(object obj)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Debug, _log.Name, null, "{0}", new[] {obj}));
 		}
 
-		public void Debug(LogMessageGenerator messageGenerator)
+		void ILog.Debug(LogMessageGenerator messageGenerator)
 		{
-			if (IsDebugEnabled)
-				Debug(messageGenerator());
+			if (_self.IsDebugEnabled)
+				_self.Debug(messageGenerator());
 		}
 
-		public void Debug(object obj, Exception exception)
+		void ILog.Debug(object obj, Exception exception)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Debug, _log.Name, null, "{0}", new[] {obj}, exception));
 		}
 
-		public void Info(object obj)
+		void ILog.Info(object obj)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Info, _log.Name, null, "{0}", new[] {obj}));
 		}
 
-		public void Info(LogMessageGenerator messageGenerator)
+		void ILog.Info(LogMessageGenerator messageGenerator)
 		{
-			if (IsInfoEnabled)
-				Info(messageGenerator());
+			if (_self.IsInfoEnabled)
+				_self.Info(messageGenerator());
 		}
 
-		public void Info(object obj, Exception exception)
+		void ILog.Info(object obj, Exception exception)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Info, _log.Name, null, "{0}", new[] {obj}, exception));
 		}
 
-		public void Warn(object obj)
+		void ILog.Warn(object obj)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Warn, _log.Name, null, "{0}", new[] {obj}));
 		}
 
-		public void Warn(LogMessageGenerator messageGenerator)
+		void ILog.Warn(LogMessageGenerator messageGenerator)
 		{
-			if (IsWarnEnabled)
-				Warn(messageGenerator());
+			if (_self.IsWarnEnabled)
+				_self.Warn(messageGenerator());
 		}
 
-		public void Warn(object obj, Exception exception)
+		void ILog.Warn(object obj, Exception exception)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Warn, _log.Name, null, "{0}", new[] {obj}, exception));
 		}
 
-		public void Error(object obj)
+		void ILog.Error(object obj)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Error, _log.Name, null, "{0}", new[] {obj}));
 		}
 
-		public void Error(LogMessageGenerator messageGenerator)
+		void ILog.Error(LogMessageGenerator messageGenerator)
 		{
-			if (IsErrorEnabled)
-				Warn(messageGenerator());
+			if (_self.IsErrorEnabled)
+				_self.Warn(messageGenerator());
 		}
 
-		public void Error(object obj, Exception exception)
+		void ILog.Error(object obj, Exception exception)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Error, _log.Name, null, "{0}", new[] {obj}, exception));
 		}
 
-		public void Fatal(object obj)
+		void ILog.Fatal(object obj)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Fatal, _log.Name, null, "{0}", new[] {obj}));
 		}
 
-		public void Fatal(LogMessageGenerator messageGenerator)
+		void ILog.Fatal(LogMessageGenerator messageGenerator)
 		{
-			if (IsFatalEnabled)
-				Fatal(messageGenerator());
+			if (_self.IsFatalEnabled)
+				_self.Fatal(messageGenerator());
 		}
 
-		public void Fatal(object obj, Exception exception)
+		void ILog.Fatal(object obj, Exception exception)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Fatal, _log.Name, null, "{0}", new[] {obj}, exception));
 		}
@@ -140,52 +142,52 @@ namespace MassTransit.NLogIntegration.Logging
 
 		#region Formatting Members
 
-		public void DebugFormat(IFormatProvider formatProvider, string format, params object[] args)
+		void ILog.DebugFormat(IFormatProvider formatProvider, string format, params object[] args)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Debug, _log.Name, formatProvider, format, args));
 		}
 
-		public void DebugFormat(string format, params object[] args)
+		void ILog.DebugFormat(string format, params object[] args)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Debug, _log.Name, null, format, args));
 		}
 
-		public void InfoFormat(IFormatProvider formatProvider, string format, params object[] args)
+		void ILog.InfoFormat(IFormatProvider formatProvider, string format, params object[] args)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Info, _log.Name, formatProvider, format, args));
 		}
 
-		public void InfoFormat(string format, params object[] args)
+		void ILog.InfoFormat(string format, params object[] args)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Info, _log.Name, null, format, args));
 		}
 
-		public void WarnFormat(IFormatProvider formatProvider, string format, params object[] args)
+		void ILog.WarnFormat(IFormatProvider formatProvider, string format, params object[] args)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Warn, _log.Name, formatProvider, format, args));
 		}
 
-		public void WarnFormat(string format, params object[] args)
+		void ILog.WarnFormat(string format, params object[] args)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Warn, _log.Name, null, format, args));
 		}
 
-		public void ErrorFormat(IFormatProvider formatProvider, string format, params object[] args)
+		void ILog.ErrorFormat(IFormatProvider formatProvider, string format, params object[] args)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Error, _log.Name, formatProvider, format, args));
 		}
 
-		public void ErrorFormat(string format, params object[] args)
+		void ILog.ErrorFormat(string format, params object[] args)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Error, _log.Name, null, format, args));
 		}
 
-		public void FatalFormat(IFormatProvider formatProvider, string format, params object[] args)
+		void ILog.FatalFormat(IFormatProvider formatProvider, string format, params object[] args)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Fatal, _log.Name, formatProvider, format, args));
 		}
 
-		public void FatalFormat(string format, params object[] args)
+		void ILog.FatalFormat(string format, params object[] args)
 		{
 			_log.Log(typeof (NLogLog), new LogEventInfo(LogLevel.Fatal, _log.Name, null, format, args));
 		}
