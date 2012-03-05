@@ -49,7 +49,7 @@ namespace MassTransit.RuntimeServices
 					{
 						sbc.ReceiveFrom(configuration.SubscriptionServiceUri);
 
-						sbc.UseMsmq();
+						sbc.UseRabbitMq();
 
 						sbc.SetConcurrentConsumerLimit(1);
 					});

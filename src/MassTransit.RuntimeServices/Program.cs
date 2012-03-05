@@ -50,7 +50,7 @@ namespace MassTransit.RuntimeServices
 					else
 						config.RunAsLocalSystem();
 
-					config.DependsOnMsmq();
+					//config.DependsOnMsmq();
 
 					if (serviceConfiguration.SubscriptionServiceEnabled)
 					{
@@ -114,6 +114,8 @@ namespace MassTransit.RuntimeServices
 					service.WhenStarted(start);
 					service.WhenStopped(stop);
 				});
+
+			configurator.AfterStoppingServices(() => { container.Dispose(); });
 		}
 	}
 }

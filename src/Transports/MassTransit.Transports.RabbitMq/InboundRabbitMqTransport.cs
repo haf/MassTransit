@@ -90,8 +90,9 @@ namespace MassTransit.Transports.RabbitMq
                             {
                                 Address.LogSkipped(result.BasicProperties.MessageId);
 
-                                throw new MessageNotConsumedException(Address.Uri,
-                                    string.Format("Message Not Received: {0}", result.BasicProperties.MessageId));
+								//throw new MessageNotConsumedException(Address.Uri,
+								//    string.Format("Message Not Received: {0}", result.BasicProperties.MessageId));
+                            	return;
                             }
 
                             receive(context);

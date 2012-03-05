@@ -46,7 +46,7 @@ namespace MassTransit.RuntimeServices
 								sbc.ReceiveFrom(configuration.HealthServiceDataUri);
 								sbc.UseControlBus();
 
-								sbc.UseMsmq();
+								sbc.UseRabbitMq();
 								sbc.UseSubscriptionService(configuration.SubscriptionServiceUri);
 
 								sbc.SetConcurrentConsumerLimit(1);
