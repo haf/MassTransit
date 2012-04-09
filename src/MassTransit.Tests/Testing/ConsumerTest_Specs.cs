@@ -14,6 +14,7 @@ namespace MassTransit.Tests.Testing
 {
 	using Magnum.TestFramework;
 	using MassTransit.Testing;
+	using NUnit.Framework;
 
 	[Scenario]
 	public class When_a_consumer_is_being_tested
@@ -142,6 +143,62 @@ namespace MassTransit.Tests.Testing
 			public void Consume(IConsumeContext<A> context)
 			{
 				context.Respond(new B());
+			}
+		}
+
+		class A
+		{
+		}
+
+		class B
+		{
+		}
+	}
+
+	[Scenario]
+	public class When_publishing_on_bus_from_consumer
+	{
+		ConsumerTest<BusTestScenario, Testsumer> _test;
+
+		[When]
+		public void A_consumer_is_being_tested()
+		{
+			_test = TestFactory.ForConsumer<Testsumer>()
+				.New(x =>
+				{
+					x.ConstructUsing(() => new Testsumer());
+
+					x.Send(new A(), (scenario, context) => context.SendResponseTo(scenario.Bus));
+				});
+
+			_test.Execute();
+		}
+
+		[Finally]
+		public void Teardown()
+		{
+			_test.Dispose();
+			_test = null;
+		}
+
+		[Test]
+		public void Should_have_received_A_message()
+		{
+			_test.Received.Any<A>().ShouldBeTrue();
+		}
+
+		[Test]
+		public void Should_have_sent_single_B_message()
+		{
+			_test.Published.Any<B>().ShouldBeTrue();
+		}
+
+		class Testsumer :
+			Consumes<A>.Context
+		{
+			public void Consume(IConsumeContext<A> context)
+			{
+				context.Bus.Publish(new B());
 			}
 		}
 
