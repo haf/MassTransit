@@ -181,13 +181,13 @@ namespace MassTransit.Tests.Testing
 			_test = null;
 		}
 
-		[Test]
+		[Then]
 		public void Should_have_received_A_message()
 		{
 			_test.Received.Any<A>().ShouldBeTrue();
 		}
 
-		[Test]
+		[Then]
 		public void Should_have_sent_single_B_message()
 		{
 			_test.Published.Any<B>().ShouldBeTrue();
