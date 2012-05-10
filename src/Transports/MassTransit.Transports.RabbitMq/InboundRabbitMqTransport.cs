@@ -72,6 +72,12 @@ namespace MassTransit.Transports.RabbitMq
 
                         using (var body = new MemoryStream(result.Body, false))
                         {
+                            if (_log.IsDebugEnabled)
+                            {
+                                var msg = Encoding.UTF8.GetString(body.ToArray());
+                                _log.Debug(msg);
+                            }
+
                             ReceiveContext context = ReceiveContext.FromBodyStream(body);
                             context.SetMessageId(result.BasicProperties.MessageId ?? result.DeliveryTag.ToString());
                             result.BasicProperties.MessageId = context.MessageId;
