@@ -53,8 +53,9 @@ let main args =
   printfn "press a key to send an 'in-place interface impl' msg"
   Console.ReadKey(true) |> ignore
   let msg3 = "With anonymous interface impl"
-  ep.Send({ new TestMessage with
-              member x.Message = msg3 })
+  ep.Send<TestMessage>({ new TestMessage with
+                          member x.Message = msg3 })
 
   printfn "Waiting..."
+  Console.ReadKey(true) |> ignore
   0
