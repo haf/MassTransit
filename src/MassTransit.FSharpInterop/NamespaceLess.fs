@@ -1,10 +1,10 @@
 ﻿// Learn more about F# at http://fsharp.net
+module NamespaceLess
 
 open System
 open MassTransit
 open MassTransit.NLogIntegration
 open NLog.Config
-
 // the below types are in the global namespace, under the "NamespaceLess" module. A module = static class in c#.
 
 // this is the interface that we're going to implement and subscribe to
@@ -52,7 +52,7 @@ let wait i =
   printfn "waiting..."
   System.Threading.Thread.Sleep(i * 1000)
 
-[<EntryPoint>]
+//[<EntryPoint>]
 let main args =
 
   printfn "Starting..."

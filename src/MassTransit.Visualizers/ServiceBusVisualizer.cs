@@ -43,7 +43,6 @@ namespace MassTransit.Visualizers
 				var sb = new StringBuilder();
 				sb.AppendLine(string.Format("Listening On: {0}", bus.Endpoint));
 
-
 				sb.AppendLine("Outbound Pipeline:");
 				PipelineViewer.Trace(bus.OutboundPipeline);
 

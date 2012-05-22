@@ -41,7 +41,7 @@ namespace MassTransit.Tests.Serialization
 			var pipeline = InboundPipelineConfigurator.CreateDefault(null);
 
 			var consumer = new TestMessageConsumer<ComplaintAdded>();
-
+			
 			pipeline.ConnectInstance(consumer);
 
 			var user = new UserImpl("Chris", "noone@nowhere.com");

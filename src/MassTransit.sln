@@ -65,6 +65,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.Reactive.Tests"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MassTransit.FSharpInterop", "MassTransit.FSharpInterop\MassTransit.FSharpInterop.fsproj", "{F184C443-0AEE-430F-96FE-5F87BD298049}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MassTransit.FSharp", "MassTransit.FSharp\MassTransit.FSharp.fsproj", "{C4766A5B-2561-4958-9CDD-02BAC85EF44D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -335,6 +337,16 @@ Global
 		{F184C443-0AEE-430F-96FE-5F87BD298049}.Release|Mixed Platforms.Build.0 = Release|x86
 		{F184C443-0AEE-430F-96FE-5F87BD298049}.Release|x86.ActiveCfg = Release|x86
 		{F184C443-0AEE-430F-96FE-5F87BD298049}.Release|x86.Build.0 = Release|x86
+		{C4766A5B-2561-4958-9CDD-02BAC85EF44D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4766A5B-2561-4958-9CDD-02BAC85EF44D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4766A5B-2561-4958-9CDD-02BAC85EF44D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C4766A5B-2561-4958-9CDD-02BAC85EF44D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C4766A5B-2561-4958-9CDD-02BAC85EF44D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C4766A5B-2561-4958-9CDD-02BAC85EF44D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4766A5B-2561-4958-9CDD-02BAC85EF44D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4766A5B-2561-4958-9CDD-02BAC85EF44D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C4766A5B-2561-4958-9CDD-02BAC85EF44D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C4766A5B-2561-4958-9CDD-02BAC85EF44D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
