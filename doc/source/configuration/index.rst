@@ -14,3 +14,4 @@ which will be followed up with a few configuration examples.
     transports/index.rst
     containers.rst
     gotchas.rst
+    automatonymous.rst
